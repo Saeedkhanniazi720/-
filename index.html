@@ -1,118 +1,346 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ur" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <title>Technically Niazi</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: black;
-            font-family: Arial, sans-serif;
-            color: white;
-        }
+  <meta charset="UTF-8" />
+  <title>مدادخیل ویلفیئر سوسائٹی</title>
+  <style>
+    body {
+      font-family: 'Noto Nastaliq Urdu', serif;
+      background: url('https://files.123freevectors.com/wp-content/original/214753-black-red-and-orange-blank-visiting-card-design-background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+      padding: 20px;
+      margin: 0;
+      overflow-x: hidden;
+      text-align: center;
+    }
 
-        header, section, footer {
-            text-align: center;
-            padding: 40px 20px;
-        }
+    .logo-container {
+      text-align: center;
+      margin: 20px 0 10px 0;
+      position: relative;
+      perspective: 1000px;
+    }
 
-        h1 {
-            font-size: 50px;
-            margin-bottom: 20px;
-        }
+    .logo-image,
+    .logo-text {
+      display: inline-block;
+      transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+    }
 
-        h2 {
-            font-size: 28px;
-            margin: 20px 0 10px;
-            color: #00aaff;
-        }
+    .logo-text {
+      font-size: 30px;
+      font-weight: bold;
+      color: #00cc99;
+      text-shadow: 0 0 10px #00cc99, 0 0 20px #00cc99;
+      margin-top: 10px;
+      display: block;
+      font-family: 'Noto Nastaliq Urdu', serif;
+    }
 
-        p {
-            font-size: 18px;
-            max-width: 800px;
-            margin: 0 auto 20px;
-            line-height: 1.6;
-        }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
 
-        .button {
-            display: inline-block;
-            padding: 14px 32px;
-            background-color: white;
-            color: black;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 30px;
-            border: 3px solid #00aaff;
-            transition: all 0.3s ease;
-            margin-top: 20px;
-        }
+    @keyframes jump {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-30px); }
+    }
 
-        .button:hover {
-            background-color: #00aaff;
-            color: white;
-        }
+    @keyframes slide {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(100px); }
+    }
 
-        .card {
-            background-color: #111;
-            border: 1px solid #222;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 15px auto;
-            max-width: 600px;
-        }
+    @keyframes reverseBreak {
+      0% {
+        transform: translateX(150px) rotate(180deg) scale(0.1);
+        opacity: 0;
+        filter: blur(5px);
+      }
+      100% {
+        transform: translateX(0) rotate(0deg) scale(1);
+        opacity: 1;
+        filter: none;
+      }
+    }
 
-        footer {
-            font-size: 14px;
-            color: #888;
-        }
-    </style>
+    .spin { animation: spin 2s linear; }
+    .jump { animation: jump 1s ease-in-out; }
+    .slide { animation: slide 2s ease-in-out; }
+    .reverse-break { animation: reverseBreak 2s ease-out; }
+
+    .clock-container {
+      display: flex;
+      justify-content: center;
+      margin: 10px 0 15px 0;
+    }
+
+    .clock-box {
+      background-color: #001a33cc;
+      border-radius: 25px;
+      display: flex;
+      align-items: center;
+      padding: 10px 25px;
+      box-shadow: 0 0 15px #00ccff88;
+      position: relative;
+      overflow: hidden;
+      width: 240px;
+    }
+
+    .clock-box.night {
+      background-color: #000d1aee;
+      box-shadow: 0 0 30px #00ffffcc;
+    }
+
+    .time-section {
+      background-color: #0a1f33;
+      color: #00ffff;
+      font-family: 'DS-Digital', monospace;
+      font-size: 48px;
+      padding: 5px 15px;
+      border-top-left-radius: 25px;
+      border-bottom-left-radius: 25px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      min-width: 140px;
+    }
+
+    .am-pm {
+      font-size: 14px;
+      color: #bbb;
+      margin-bottom: 3px;
+    }
+
+    .colon {
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .temp-section {
+      padding-left: 15px;
+      display: flex;
+      align-items: center;
+    }
+
+    .temp-circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #003366;
+      border: 2px solid #00ccff;
+      color: #00ccff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+    }
+
+    .temp-label {
+      font-size: 11px;
+      margin-bottom: 2px;
+    }
+
+    .temp-value {
+      font-size: 14px;
+    }
+
+    .punjabi-date {
+      font-size: 24px;
+      margin-top: 20px;
+      font-weight: bold;
+      color: black;
+    }
+
+    .donation {
+      margin-top: 30px;
+      font-size: 20px;
+      color: black;
+      background: #ccf2e4;
+      padding: 10px 20px;
+      border-radius: 12px;
+      display: inline-block;
+      max-width: 420px;
+      line-height: 1.4;
+      text-align: right;
+      direction: rtl;
+    }
+
+    .donation strong {
+      color: #009688;
+    }
+
+    .copy-button {
+      margin-top: 10px;
+      padding: 7px 15px;
+      font-size: 14px;
+      border: none;
+      border-radius: 6px;
+      background-color: #009688;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .copy-button:hover {
+      background-color: #00775a;
+    }
+
+    .copy-message {
+      margin-top: 10px;
+      font-size: 14px;
+      color: green;
+      font-weight: bold;
+      display: none;
+    }
+
+    /* Clock lights effect */
+    .clock-box::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      width: calc(100% + 20px);
+      height: calc(100% + 20px);
+      border-radius: 30px;
+      box-shadow:
+        0 0 10px #00ccff,
+        0 0 20px #00ccff,
+        0 0 30px #00ccff,
+        0 0 40px #00ccff;
+      opacity: 0.6;
+      animation: pulse 2s infinite alternate;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.3; }
+      100% { opacity: 0.8; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Technically Niazi</h1>
-        <a class="button" href="https://upload.app/download/niazi-tracker/niazi.tracker/4fb1141784437e166a119f69154abd280025b4bee6fc1081608142116ff96e7c" target="_blank">Get Started</a>
-    </header>
 
-    <section>
-        <h2>ہمارے یوٹیوب چینل کو سبسکرائب کریں</h2>
-        <p>Niazi Tech Master چینل پر مفید ٹیکنالوجی ویڈیوز حاصل کریں۔</p>
-        <a class="button" href="https://www.youtube.com/@NiaziTechMaster" target="_blank">Subscribe on YouTube</a>
-    </section>
+  <div class="logo-container">
+    <img id="logoIcon" src="https://cdn-icons-png.flaticon.com/512/7067/7067935.png" alt="Welfare Icon" width="100" class="logo-image">
+    <div id="logoText" class="logo-text">
+      <span>مدادخیل ویلفیئر سوسائٹی</span>
+    </div>
+  </div>
 
-    <section>
-        <h2>دنیا بھر سے پیسہ کمائیں</h2>
-        <p>ہم آپ کو سکھاتے ہیں کہ آن لائن کیسے کمایا جا سکتا ہے۔ ریفر کریں، کوئز حل کریں اور انعامات جیتیں۔</p>
-        <div class="card">
-            <h3>کورسز اور کوئزز</h3>
-            <p>ہم مفت آن لائن کورسز اور انعامی کوئزز فراہم کرتے ہیں۔</p>
+  <div class="clock-container">
+    <div class="clock-box" id="clockBox">
+      <div class="time-section">
+        <span class="am-pm" id="ampm">AM</span>
+        <span class="time-digits" id="time">12<span class="colon">:</span>00</span>
+      </div>
+      <div class="temp-section">
+        <div class="temp-circle">
+          <div class="temp-label">TEMP</div>
+          <div class="temp-value" id="temp">29.1°C</div>
         </div>
-        <div class="card">
-            <h3>ریفرل سسٹم</h3>
-            <p>مزید لوگوں کو مدعو کریں اور اضافی انعامات حاصل کریں۔</p>
-        </div>
-    </section>
+      </div>
+    </div>
+  </div>
 
-    <section>
-        <h2>Best Deals Today!</h2>
-        <div class="card">
-            <h3>Tech Bundle Offer</h3>
-            <p>صرف آج کے لیے خصوصی آفر پر! ابھی حاصل کریں۔</p>
-            <a class="button" href="#" target="_blank">Buy Now</a>
-        </div>
-    </section>
+  <div class="punjabi-date" id="punjabi-date">6 جیٹھ</div>
 
-    <section>
-        <h2>ہم سے رابطہ کریں</h2>
-        <p>مزید معلومات یا سوالات کے لیے ہم سے رابطہ کریں۔</p>
-        <a class="button" href="mailto:niazitechcontact@gmail.com">niazitechcontact@gmail.com</a>
-    </section>
+  <div class="donation">
+    آئیے مل کر ان ہاتھوں کو سہارا دیں جو بے سہارا ہیں۔ آپ کا دیا ہوا عطیہ کسی کے چولہے کو جلا سکتا ہے، کسی بچے کو تعلیم دے سکتا ہے، اور کسی بیوہ کے آنسو پونچھ سکتا ہے۔<br><br>
+    عطیات کے لیے رابطہ کریں: <br />
+    <strong>غریب نواز</strong> - 03063964246
+    <button class="copy-button" id="copyBtn">نمبر کاپی کریں</button>
+    <div class="copy-message" id="copyMsg">نمبر کاپی ہو گیا ہے! اب عطیات سینڈ کر دیں۔</div>
+    <br><br>
+    <strong>عطیہ بھیجنے کا طریقہ:</strong><br>
+    1. نمبر کاپی کریں۔<br>
+    2. JazzCash ایپ کھولیں۔<br>
+    3. "Send Money" آپشن منتخب کریں۔<br>
+    4. کاپی کیا ہوا نمبر پیسٹ کریں اور رقم بھیج دیں۔
+  </div>
 
-    <footer>
-        <p>&copy; 2025 Technically Niazi. All rights reserved.</p>
-    </footer>
+  <script>
+    const logoIcon = document.getElementById('logoIcon');
+    const logoText = document.getElementById('logoText');
+    const effects = ['spin', 'jump', 'slide', 'reverse-break'];
+
+    setInterval(() => {
+      logoIcon.className = 'logo-image';
+      logoText.className = 'logo-text';
+      const effect = effects[Math.floor(Math.random() * effects.length)];
+      logoIcon.classList.add(effect);
+      logoText.classList.add(effect);
+    }, 3000);
+
+    function updateClock() {
+      const now = new Date();
+      let hours = now.getHours();
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12 || 12;
+      document.getElementById('time').innerHTML = `${hours}<span class="colon">:</span>${minutes}`;
+      document.getElementById('ampm').textContent = ampm;
+    }
+
+    function updateTemperature() {
+      const temp = (28 + Math.random() * 4).toFixed(1);
+      document.getElementById('temp').textContent = `${temp}°C`;
+    }
+
+    function updatePunjabiDate() {
+      const today = new Date();
+      const startOfMonth = new Date(today.getFullYear(), 4, 14); // 14 May (Month 4 = May)
+      const todayNoTime = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      const startNoTime = new Date(startOfMonth.getFullYear(), startOfMonth.getMonth(), startOfMonth.getDate());
+      
+      const diffTime = todayNoTime - startNoTime;
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      
+      const punjabiDate = diffDays >= 0 ? diffDays + 1 : 1;
+      document.getElementById('punjabi-date').textContent = `${punjabiDate} جیٹھ`;
+    }
+
+    function toggleBacklight() {
+      const hour = new Date().getHours();
+      const clockBox = document.getElementById('clockBox');
+      if (hour >= 18 || hour < 6) {
+        clockBox.classList.add('night');
+      } else {
+        clockBox.classList.remove('night');
+      }
+    }
+
+    document.getElementById('copyBtn').addEventListener('click', () => {
+      const phone = '03063964246';
+      navigator.clipboard.writeText(phone).then(() => {
+        const msg = document.getElementById('copyMsg');
+        msg.style.display = 'block';
+        setTimeout(() => {
+          msg.style.display = 'none';
+        }, 3000);
+      });
+    });
+
+    setInterval(updateClock, 1000);
+    setInterval(updateTemperature, 60000);
+    setInterval(updatePunjabiDate, 86400000);
+    setInterval(toggleBacklight, 60000);
+
+    updateClock();
+    updateTemperature();
+    updatePunjabiDate();
+    toggleBacklight();
+  </script>
+
 </body>
 </html>
